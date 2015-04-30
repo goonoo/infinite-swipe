@@ -6,9 +6,6 @@ devices.
 
 How it works
 ------------
-N times larger than the size specified quality stage show is the stage of UI
-(n consisting page) Position the target.
-Target of the position is adjusted according to the user's swipe motion.
 
 Place target at stage that shows UI. If target has N pages, target should be
 N times than stage.
