@@ -1,0 +1,33 @@
+/*!
+ * infinite-swipe v0.1.4
+ * https://github.com/mctenshi/infinite-swipe
+ *
+ * Copyright 2014 RecoPick
+ * Released under the MIT license
+ */
+.infinite-swipe-stage {
+  position: relative;
+}
+.infinite-swipe-target {
+  position: relative;
+  -webkit-transform: translate3D(0, 0, 0);
+  -moz-transform: translate3D(0, 0, 0);
+  -ms-transform: translate3D(0, 0, 0);
+  -o-transform: translate3D(0, 0, 0);
+  transform: translate3D(0, 0, 0);
+  -webkit-transition: -webkit-transform 300ms;
+  -moz-transition: -moz-transform 300ms;
+  -ms-transition: -ms-transform 300ms;
+  -o-transition: -o-transform 300ms;
+  transition: transform 300ms;
+}
+.infinite-swipe-disabled-transition {
+  -webkit-transition: none;
+  -moz-transition: none;
+  -ms-transition: none;
+  -o-transition: none;
+  transition: none;
+}
+.infinite-swipe-target-clone {
+  position: absolute;
+}

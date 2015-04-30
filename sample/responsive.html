@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <title>Recommend Items</title>
+    <link rel="stylesheet" href="../swipe.css">
+    <style>
+      body, ul, li {
+        margin: 0;
+        padding: 0;
+      }
+      .sample {
+        position: relative;
+        height: 500px;
+        padding: 20px 60px;
+        background: #eee;
+      }
+      .target-wrap {
+        position: relative;
+        width: 100%;
+        height: 500px;
+        overflow: hidden;
+      }
+      .target {
+        width: 400%;
+        list-style: none;
+      }
+      .target li {
+        float: left;
+        width: 6.25%;
+      }
+      .target img {
+        width: 100%;
+      }
+      .prev {
+        cursor: pointer;
+        position: absolute;
+        top: 90px;
+        left: 5px;
+        width: 47px;
+        height: 25px;
+        background: url(https://mctenshi.github.io/infinite-swipe/images/prev.png) no-repeat 0 0;
+      }
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 90px;
+        right: 5px;
+        width: 47px;
+        height: 25px;
+        background: url(https://mctenshi.github.io/infinite-swipe/images/next.png) no-repeat 0 0;
+      }
+    </style>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="../swipe.js"></script>
+    <script>
+    $(function () {
+      $('.sample').infiniteSwipe({
+        $target: $('.target'),
+        total: 4,
+        $prev: $('.prev'),
+        $next: $('.next'),
+        infinite: true 
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <p>Try resize browser. :p</p>
+    <div class="sample">
+      <div class="target-wrap">
+        <ul class="target">
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/1.png">
+              <div class="name">Nikon Coolpix S2800 20.1 MP Point</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png">
+              <div class="name">Canon EOS Rebel T5 18MP EF-S</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/4.png">
+              <div class="name">Sony W800/B 20.1 MP Digital Camera </div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/2.png">
+              <div class="name">Google Chromecast HDMI Streaming</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/2.png">
+              <div class="name">New Roku 3 Streaming Media Player</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png">
+              <div class="name">TP-LINK Archer C7 AC1750 Dual Band</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/2.png">
+              <div class="name">JBtek Black Replacement USB Charger</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/5.png">
+              <div class="name">GoPro HERO4 SILVER</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/5.png">
+              <div class="name">Asus VS247H-P 23.6-Inch Full-HD</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/5.png">
+              <div class="name">Syba SD-CM-UAUD USB Stereo Audio</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/2.png">
+              <div class="name">HP Stream 11 Laptop</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png">
+              <div class="name">Fujifilm Instax Mini 8 Instant Film</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/4.png">
+              <div class="name">ARRIS / Motorola SurfBoard SB6183</div>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png">
+              <div class="name">Apple Watch</div>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="prev"></div>
+      <div class="next"></div>
+    </div>
+  </body>
+</html>

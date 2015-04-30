@@ -1,0 +1,38 @@
+{
+  "name": "infinite-swipe",
+  "description": "Light Weight Swipe Library, Infinite Swipe",
+  "version": "0.1.0",
+  "main": "./swipe.js",
+  "license": "MIT",
+  "moduleType": [
+    "amd",
+    "commonjs",
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "Gruntfile.js",
+    "*.md",
+    "*.json"
+  ],
+  "keywords": [
+    "swipe",
+    "carousel",
+    "infinite"
+  ],
+  "authors": [
+    "mctenshi <mctenshi@gmail.com>"
+  ],
+  "homepage": "https://github.com/mctenshi/infinite-swipe",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mctenshi/infinite-swipe.git"
+  },
+  "dependencies": {
+    "jquery": ">=1.7"
+  }
+}

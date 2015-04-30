@@ -1,0 +1,24 @@
+{
+  "name": "infinite-swipe",
+  "version": "0.1.0",
+  "description": "Infinite Swipe is simple swipe library that can use for both desktop and mobile devices.",
+  "scripts": {
+    "test": "grunt qunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mctenshi/infinite-swipe.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mctenshi/infinite-swipe/issues"
+  },
+  "homepage": "https://github.com/mctenshi/infinite-swipe",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.10.0",
+    "grunt-contrib-qunit": "^0.5.2",
+    "grunt-contrib-uglify": "^0.5.0"
+  }
+}
