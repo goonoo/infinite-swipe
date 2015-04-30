@@ -51,7 +51,7 @@
         background: url(https://mctenshi.github.io/infinite-swipe/images/next.png) no-repeat 0 0;
       }
     </style>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="../swipe.js"></script>
     <script>
     $(function () {
@@ -60,6 +60,7 @@
         total: 4,
         $prev: $('.prev'),
         $next: $('.next'),
+        $curr: $('#page'),
         infinite: true 
       });
     });
@@ -67,6 +68,7 @@
   </head>
   <body>
     <p>Try resize browser. :p</p>
+    <p>Now <span id="page">1</span> of total 4 pages.</p>
     <div class="sample">
       <div class="target-wrap">
         <ul class="target">
