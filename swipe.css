@@ -1,5 +1,5 @@
 /*!
- * infinite-swipe v0.1.4
+ * infinite-swipe v0.1.1
  * https://github.com/mctenshi/infinite-swipe
  *
  * Copyright 2014 RecoPick
@@ -10,6 +10,7 @@
 }
 .infinite-swipe-target {
   position: relative;
+  opacity: 1;
   -webkit-transform: translate3D(0, 0, 0);
   -moz-transform: translate3D(0, 0, 0);
   -ms-transform: translate3D(0, 0, 0);
@@ -30,4 +31,7 @@
 }
 .infinite-swipe-target-clone {
   position: absolute;
+}
+.infinite-swipe-target.infinite-swipe-resizing {
+  opacity: .3;
 }

@@ -1,11 +1,13 @@
 /*!
- * infinite-swipe v0.1.0
+ * infinite-swipe v0.1.1
  * https://github.com/mctenshi/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/mctenshi/recopick-swipe
  * Released under the MIT license
  */
 (function (factory) {
+  "use strict";
+
   if (typeof define === 'function' && define.amd) {
     // AMD
     define(['jquery'], factory);
@@ -34,7 +36,7 @@
 
 
   var swipe = function (options) {
-    var options = $.extend({
+    options = $.extend({
           $target: null,
           $prev: null,
           $next: null,
@@ -60,7 +62,8 @@
 
     if (options.infinite) {
       $target.clone().attr('aria-hidden', true)
-             .addClass('infinite-swipe-target-clone').css('left', $target.width())
+             .addClass('infinite-swipe-target-clone')
+             .css('left', options.total * 100 + '%')
              .insertBefore($target);
       $target = $target.parent().find('.infinite-swipe-target');
     }
@@ -76,7 +79,7 @@
 
     var swipePrev = function () { p--; animate(); };
     var swipeNext = function () { p++; animate(); };
-    var animate = function () {
+    var animate = function (callback) {
       if (curr_px > 30) p--;
       else if (curr_px < -30) p++;
 
@@ -127,6 +130,9 @@
         if (options.$next) options.$next.toggleClass('disabled', p === total);
       }
       if (options.$curr) options.$curr.text(p);
+      if (callback) {
+        setTimeout(callback, options.transition_ms);
+      }
     };
     var animate_px = function (px) {
       curr_px = px;
@@ -219,7 +225,10 @@
 
     $(window).on('resize orientationchange', function (e) {
       getWidth(true);
-      animate();
+      $target.addClass('infinite-swipe-resizing');
+      animate(function () {
+        $target.removeClass('infinite-swipe-resizing');
+      });
     });
 
     // init

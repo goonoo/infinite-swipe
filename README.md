@@ -1,4 +1,4 @@
-# Infinite Swipe [![Build Status](https://travis-ci.org/mctenshi/infinite-swipe.png?branch=master)](https://travis-ci.org/mctenshi/infinite-swipe)
+I# Infinite Swipe [![Build Status](https://travis-ci.org/mctenshi/infinite-swipe.png?branch=master)](https://travis-ci.org/mctenshi/infinite-swipe)
 
 Infinite Swipe is simple swipe library that can use for both desktop and mobile
 devices.
