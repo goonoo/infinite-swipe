@@ -24,6 +24,12 @@ module.exports = function (grunt) {
           "dist/swipe.min.css": ['swipe.css']
         }
       }
+    },
+    watch: {
+      scripts: {
+        files: [ 'swipe.js' ],
+        tasks: [ 'uglify' ]
+      }
     }
   });
 
