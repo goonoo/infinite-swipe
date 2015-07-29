@@ -162,11 +162,13 @@
     },
     onWindowResize: function (e) {
       var this_ = this;
-      this.getWidth(true);
-      this.$target.addClass('infinite-swipe-resizing');
-      this.animate(function () {
-        this_.$target.removeClass('infinite-swipe-resizing');
-      });
+      setTimeout(function () {
+        this_.getWidth(true);
+        this_.$target.addClass('infinite-swipe-resizing');
+        this_.animate(0, function () {
+          this_.$target.removeClass('infinite-swipe-resizing');
+        });
+      }, 200);
     },
     addListeners: function () {
       var this_ = this;
@@ -222,11 +224,13 @@
             this.$target.width();
       return this._w;
     },
-    swipePrev: function () { this.p--; this.animate(); },
-    swipeNext: function () { this.p++; this.animate(); },
-    animate: function (callback) {
+    swipePrev: function () { this.animate(-1); },
+    swipeNext: function () { this.animate(1); },
+    animate: function (pages_to_add, callback) {
       var this_ = this;
+      var old_page = this.p;
 
+      if (pages_to_add) this.p += pages_to_add;
       if (this.curr_px > 30) this.p--;
       else if (this.curr_px < -30) this.p++;
 
@@ -283,7 +287,8 @@
           this.options.$next.toggleClass('disabled', this.p === this.total);
       }
       if (this.options.$curr) this.options.$curr.text(this.p);
-      if (this.options.onPage) this.options.onPage(this.p);
+      if (old_page != this.p && this.options.onPage)
+        this.options.onPage(this.p);
       if (callback) {
         setTimeout(callback, this.options.transition_ms);
       }
