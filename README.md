@@ -200,14 +200,19 @@ Options for Infinite Swipe.
 Methods
 -------
 
-`swipe_total`: change total page count
+`swipe_total` event: change total page count
 
     $('.stage').trigger('swipe_total', 5);
 
-`swipe_page`: change current page. ignore if presented page is
+`swipe_page` event: change current page. ignore if presented page is
 larger then total page count.
 
     $('.stage').trigger('swipe_page', 1);
+
+`destroy`: destroy method for infinite swipe instance.
+this remove css classes and unregister events for infinite swipe.
+
+    $('.stage').infiniteSwipe('destroy');
 
 
 Live Example
