@@ -1,6 +1,6 @@
 {
   "name": "infinite-swipe",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Infinite Swipe is simple swipe library that can use for both desktop and mobile devices.",
   "scripts": {
     "test": "grunt qunit"

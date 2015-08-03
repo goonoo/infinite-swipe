@@ -68,10 +68,14 @@
       });
 
       if (this.options.infinite) {
-        this.$target.clone().attr('aria-hidden', true)
+        var clone1 = this.$target.clone().attr('aria-hidden', true)
                .addClass('infinite-swipe-target-clone')
-               .css('left', this.options.total * 100 + '%')
-               .insertBefore(this.$target);
+               .css('left', '-' + this.options.total * 100 + '%');
+        var clone2 = this.$target.clone().attr('aria-hidden', true)
+               .addClass('infinite-swipe-target-clone')
+               .css('left', this.options.total * 100 + '%');
+        clone1.insertBefore(this.$target);
+        clone2.insertBefore(this.$target);
         this.$target = this.$target.parent().find('.infinite-swipe-target');
       }
 
@@ -156,7 +160,7 @@
       });
     },
     onSwipePage: function (e, new_page) {
-      if (new_page > this.total) return;
+      if (new_page < 1 || new_page > this.total) return;
       this.p = new_page;
       this.animate();
     },
@@ -234,30 +238,24 @@
       if (this.curr_px > 30) this.p--;
       else if (this.curr_px < -30) this.p++;
 
-      if (this.p === 0) {
-        if (this.options.infinite) {
-          this.p = this.total;
-          this.offset--;
-          this.$target.each(function (idx) {
-            $(this).css('left', this_.total *
-              (this_.offset + idx) * 100 + '%');
-          });
-        } else {
-          this.p = 1;
-        }
-      } else if (this.p === this.total + 1) {
-        if (this.options.infinite) {
+      if (!this.options.infinite) {
+        this.p = Math.max(Math.min(this.p, this.total), 1);
+      } else {
+        if (this.p === this.total + 1) {
           this.p = 1;
           this.offset++;
           // fixed coordinates after transition
-          setTimeout(function () {
-            this_.$target.each(function (idx) {
-              $(this).css('left', this_.total *
-                (this_.offset + idx) * 100 + '%');
-            });
-          }, this.options.transition_ms);
-        } else {
+          this.$target.each(function (idx) {
+            var left = this_.total * (this_.offset + idx - 1) * 100;
+            $(this).css('left', left + '%');
+          });
+        } else if (this.p === 0) {
           this.p = this.total;
+          this.offset--;
+          this.$target.each(function (idx) {
+            var left = this_.total * (this_.offset + idx - 1) * 100;
+            $(this).css('left', left + '%');
+          });
         }
       }
 
