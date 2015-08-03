@@ -43,6 +43,7 @@
       total: 1,
       infinite: false,
       transition_ms: 300,
+      autoswipe_seconds: 0,
       onPage: null
     }, options);
 
@@ -85,6 +86,34 @@
       if (!this.options.infinite && this.options.$prev) {
         this.options.$prev.toggleClass('disabled', this.p === 1);
       }
+
+      if (this.options.autoswipe_seconds > 0) {
+        this.initAutoswipe();
+      }
+    },
+    initAutoswipe: function () {
+      var this_ = this;
+      this._as_next = function () {
+        if (this_._as_timeout_id) {
+          clearTimeout(this_._as_timeout_id);
+        }
+        this_._as_timeout_id = setTimeout(function () {
+          this_.swipeNext();
+          this_._as_timeout_id = null;
+          this_._as_next();
+        }, this_.options.autoswipe_seconds * 1000);
+      };
+      this._as_resume_event = function () { this_._as_next(); };
+      this._as_pause_event = function () {
+        if (this_._as_timeout_id) {
+          clearTimeout(this_._as_timeout_id);
+          this_._as_timeout_id = null;
+        }
+      };
+      this._as_next();
+
+      this.$el.on('mouseenter focusin', this._as_pause_event)
+              .on('mouseleave focusout', this._as_resume_event);
     },
     destroy: function () {
       this.$el.removeClass('infinite-swipe-stage');
@@ -92,6 +121,10 @@
       this.$el.find('.infinite-swipe-target').
           removeClass('infinite-swipe-target');
       this.removeListeners();
+      if (this.options.autoswipe_seconds > 0) {
+        this.$el.off('mouseenter focusin', this._as_pause_event)
+                .off('mouseleave focusout', this._as_resume_event);
+      }
     },
     onPrev: function (e) {
       e.preventDefault();
