@@ -1,5 +1,5 @@
 /*!
- * infinite-swipe 1.0.0
+ * infinite-swipe 1.0.1
  * https://github.com/mctenshi/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/mctenshi/recopick-swipe
@@ -98,7 +98,7 @@
           clearTimeout(this_._as_timeout_id);
         }
         this_._as_timeout_id = setTimeout(function () {
-          this_.swipeNext();
+          if (!this_._as_pause) this_.swipeNext();
           this_._as_timeout_id = null;
           this_._as_next();
         }, this_.options.autoswipe_seconds * 1000);
@@ -114,17 +114,6 @@
 
       this.$el.on('mouseenter focusin', this._as_pause_event)
               .on('mouseleave focusout', this._as_resume_event);
-    },
-    destroy: function () {
-      this.$el.removeClass('infinite-swipe-stage');
-      this.$target.filter('.infinite-swipe-target-clone').remove();
-      this.$el.find('.infinite-swipe-target').
-          removeClass('infinite-swipe-target');
-      this.removeListeners();
-      if (this.options.autoswipe_seconds > 0) {
-        this.$el.off('mouseenter focusin', this._as_pause_event)
-                .off('mouseleave focusout', this._as_resume_event);
-      }
     },
     onPrev: function (e) {
       e.preventDefault();
@@ -342,6 +331,28 @@
           'opacity': 1
         });
       }
+    },
+
+    // ## methods for user
+    destroy: function () {
+      this.$el.removeClass('infinite-swipe-stage');
+      this.$target.filter('.infinite-swipe-target-clone').remove();
+      this.$el.find('.infinite-swipe-target').
+          removeClass('infinite-swipe-target');
+      this.removeListeners();
+      if (this.options.autoswipe_seconds > 0) {
+        this.$el.off('mouseenter focusin', this._as_pause_event)
+                .off('mouseleave focusout', this._as_resume_event);
+      }
+    },
+    // pause autoswipe
+    pause: function () {
+      this._as_pause = true;
+    },
+    // resume autoswipe
+    resume: function () {
+      this._as_pause = false;
+      this._as_next();
     }
   };
 

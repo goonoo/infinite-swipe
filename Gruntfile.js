@@ -4,7 +4,7 @@ module.exports = function (grunt) {
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     qunit: {
-      all: ['test/index.html']
+      all: ['test/*.html']
     },
     uglify: {
       options: {

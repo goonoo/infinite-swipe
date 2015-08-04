@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>RecoPick Swipe Test Suite</title>
+    <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css">
+    <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="../swipe.js"></script>
+  </head>
+  <body>
+    <div id="qunit"></div>
+    <div style="position:absolute;left:-9999px;width:500px;height:100px">
+      <div class="stage1">
+        <ul class="target1">
+          <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/1.png" width="300" height="300"></li>
+          <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png" width="300" height="300"></li>
+          <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/5.png" width="300" height="300"></li>
+        </ul>
+        <div class="prev">prev</div>
+        <div class="next">next</div>
+        <div class="curr">1</div>
+      </div>
+    </div>
+    <div style="position:absolute;left:-9999px;width:500px;height:100px">
+      <div class="stage2">
+        <ul class="target2">
+          <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/1.png" width="300" height="300"></li>
+          <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png" width="300" height="300"></li>
+          <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/5.png" width="300" height="300"></li>
+        </ul>
+        <div class="prev">prev</div>
+        <div class="next">next</div>
+        <div class="curr">1</div>
+      </div>
+    </div>
+
+    <script src="js/autoswipe.js"></script>
+  </body>
+</html>

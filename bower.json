@@ -1,7 +1,7 @@
 {
   "name": "infinite-swipe",
   "description": "Light Weight Swipe Library, Infinite Swipe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "./swipe.js",
   "license": "MIT",
   "moduleType": [
