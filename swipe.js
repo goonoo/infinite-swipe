@@ -36,18 +36,19 @@
 
   var Swipe = function ($el, options) {
     options = $.extend({
+      $targetWrap: null,
       $target: null,
       $prev: null,
       $next: null,
       $curr: null,
       total: 1,
       infinite: false,
-      transition_ms: 300,
       autoswipe_seconds: 0,
       onPage: null
     }, options);
 
     this.$el = $el;
+    this.$targetWrap = options.$targetWrap || $el;
     this.$target = options.$target || $el;
     this.p = 1;
     this.offset = 0;
@@ -60,13 +61,8 @@
   Swipe.prototype = {
     init: function () {
       this.$el.addClass('infinite-swipe-stage');
-      this.$target.addClass('infinite-swipe-target').css({
-        '-webkit-transition-delay': this.options.transition_ms,
-        '-moz-transition-delay': this.options.transition_ms,
-        '-ms-transition-delay': this.options.transition_ms,
-        '-o-transition-delay': this.options.transition_ms,
-        'transition-delay': this.options.transition_ms
-      });
+      this.$targetWrap.addClass('infinite-swipe-target-wrap');
+      this.$target.addClass('infinite-swipe-target');
 
       if (this.options.infinite) {
         var clone1 = this.$target.clone().attr('aria-hidden', true)
@@ -136,7 +132,7 @@
         e.stopPropagation();
         this._swiped = true;
         this.curr_px = 0;
-        this.$target.removeClass('infinite-swipe-disabled-transition');
+        this.$targetWrap.removeClass('infinite-swipe-disabled-transition');
         this.swipeNext();
         return;
       }
@@ -152,7 +148,7 @@
         e.stopPropagation();
         this._swiped = true;
         this.curr_px = 0;
-        this.$target.removeClass('infinite-swipe-disabled-transition');
+        this.$targetWrap.removeClass('infinite-swipe-disabled-transition');
         this.swipePrev();
         return;
       }
@@ -160,10 +156,10 @@
       this.animate_px(l);
     },
     onDragStart: function (e) {
-      this.$target.addClass('infinite-swipe-disabled-transition');
+      this.$targetWrap.addClass('infinite-swipe-disabled-transition');
     },
     onDragEnd: function (e) {
-      this.$target.removeClass('infinite-swipe-disabled-transition');
+      this.$targetWrap.removeClass('infinite-swipe-disabled-transition');
       if (!this._swiped) this.animate();
       this._swiped = false;
       $(window).off('touchmove', this.disabled_touch);
@@ -190,9 +186,9 @@
       var this_ = this;
       setTimeout(function () {
         this_.getWidth(true);
-        this_.$target.addClass('infinite-swipe-resizing');
+        this_.$targetWrap.addClass('infinite-swipe-resizing');
         this_.animate(0, function () {
-          this_.$target.removeClass('infinite-swipe-resizing');
+          this_.$targetWrap.removeClass('infinite-swipe-resizing');
         });
       }, 200);
     },
@@ -287,7 +283,7 @@
           this.getWidth()) / this.total;
 
       if (isTransformSupported) {
-        this.$target.css({
+        this.$targetWrap.css({
           '-webkit-transform': 'translate3D(' + t + 'px, 0, 0)',
           '-moz-transform': 'translate3D(' + t + 'px, 0, 0)',
           '-ms-transform': 'translate3D(' + t + 'px, 0, 0)',
@@ -295,7 +291,7 @@
           'transform': 'translate3D(' + t + 'px, 0, 0)'
         });
       } else {
-        this.$target.css('opacity', 0.7).animate({
+        this.$targetWrap.css('opacity', 0.7).animate({
           'margin-left': t + 'px',
           'opacity': 1
         }, this.options.transition_ms);
@@ -318,7 +314,7 @@
       var t = -((this.p - 1 + this.offset * this.total) *
           this.getWidth()) / this.total + px;
       if (isTransformSupported) {
-        this.$target.css({
+        this.$targetWrap.css({
           '-webkit-transform': 'translate3D(' + t + 'px, 0, 0)',
           '-moz-transform': 'translate3D(' + t + 'px, 0, 0)',
           '-ms-transform': 'translate3D(' + t + 'px, 0, 0)',
@@ -326,7 +322,7 @@
           'transform': 'translate3D(' + t + 'px, 0, 0)'
         });
       } else {
-        this.$target.css({
+        this.$targetWrap.css({
           'margin-left': t + 'px',
           'opacity': 1
         });
@@ -336,6 +332,7 @@
     // ## methods for user
     destroy: function () {
       this.$el.removeClass('infinite-swipe-stage');
+      this.$targetWrap.removeClass('infinite-swipe-target-wrap');
       this.$target.filter('.infinite-swipe-target-clone').remove();
       this.$el.find('.infinite-swipe-target').
           removeClass('infinite-swipe-target');
