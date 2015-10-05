@@ -168,10 +168,10 @@
       this.animate_px(l);
     },
     onDragStart: function (e) {
-      this._setTransitionDuration(this.options.transition_ms);
+      this._setTransitionDuration(0);
     },
     onDragEnd: function (e) {
-      this._setTransitionDuration(0);
+      this._setTransitionDuration(this.options.transition_ms);
       if (!this._swiped) this.animate();
       this._swiped = false;
       $(window).off('touchmove', this.disabled_touch);
