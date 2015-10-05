@@ -1,8 +1,10 @@
 /*!
- * infinite-swipe 1.0.1
+ * infinite-swipe 1.1.0
  * https://github.com/mctenshi/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/mctenshi/recopick-swipe
+ *
+ * (c) 2015 mctenshi (mctenshi@gmail.com)
  * Released under the MIT license
  */
 (function (factory) {
@@ -36,18 +38,20 @@
 
   var Swipe = function ($el, options) {
     options = $.extend({
+      $targetWrap: null,
       $target: null,
       $prev: null,
       $next: null,
       $curr: null,
       total: 1,
+      transition_ms: 200,
       infinite: false,
-      transition_ms: 300,
       autoswipe_seconds: 0,
       onPage: null
     }, options);
 
     this.$el = $el;
+    this.$targetWrap = options.$targetWrap || $el;
     this.$target = options.$target || $el;
     this.p = 1;
     this.offset = 0;
@@ -58,15 +62,19 @@
     this.init();
   };
   Swipe.prototype = {
+    _setTransitionDuration: function (ms) {
+      var el = this.$targetWrap.get(0);
+      el.style.webkitTransitionDuration = ms + 'ms';
+      el.style.mozTransitionDuration = ms + 'ms';
+      el.style.msTransitionDuration = ms + 'ms';
+      el.style.oTransitionDuration = ms + 'ms';
+      el.style.transitionDuration = ms + 'ms';
+    },
     init: function () {
       this.$el.addClass('infinite-swipe-stage');
-      this.$target.addClass('infinite-swipe-target').css({
-        '-webkit-transition-delay': this.options.transition_ms,
-        '-moz-transition-delay': this.options.transition_ms,
-        '-ms-transition-delay': this.options.transition_ms,
-        '-o-transition-delay': this.options.transition_ms,
-        'transition-delay': this.options.transition_ms
-      });
+      this.$targetWrap.addClass('infinite-swipe-target-wrap');
+      this._setTransitionDuration(this.options.transition_ms);
+      this.$target.addClass('infinite-swipe-target');
 
       if (this.options.infinite) {
         var clone1 = this.$target.clone().attr('aria-hidden', true)
@@ -136,7 +144,7 @@
         e.stopPropagation();
         this._swiped = true;
         this.curr_px = 0;
-        this.$target.removeClass('infinite-swipe-disabled-transition');
+        this._setTransitionDuration(0);
         this.swipeNext();
         return;
       }
@@ -152,7 +160,7 @@
         e.stopPropagation();
         this._swiped = true;
         this.curr_px = 0;
-        this.$target.removeClass('infinite-swipe-disabled-transition');
+        this._setTransitionDuration(0);
         this.swipePrev();
         return;
       }
@@ -160,10 +168,10 @@
       this.animate_px(l);
     },
     onDragStart: function (e) {
-      this.$target.addClass('infinite-swipe-disabled-transition');
+      this._setTransitionDuration(this.options.transition_ms);
     },
     onDragEnd: function (e) {
-      this.$target.removeClass('infinite-swipe-disabled-transition');
+      this._setTransitionDuration(0);
       if (!this._swiped) this.animate();
       this._swiped = false;
       $(window).off('touchmove', this.disabled_touch);
@@ -190,9 +198,9 @@
       var this_ = this;
       setTimeout(function () {
         this_.getWidth(true);
-        this_.$target.addClass('infinite-swipe-resizing');
+        this_.$targetWrap.addClass('infinite-swipe-resizing');
         this_.animate(0, function () {
-          this_.$target.removeClass('infinite-swipe-resizing');
+          this_.$targetWrap.removeClass('infinite-swipe-resizing');
         });
       }, 200);
     },
@@ -287,7 +295,7 @@
           this.getWidth()) / this.total;
 
       if (isTransformSupported) {
-        this.$target.css({
+        this.$targetWrap.css({
           '-webkit-transform': 'translate3D(' + t + 'px, 0, 0)',
           '-moz-transform': 'translate3D(' + t + 'px, 0, 0)',
           '-ms-transform': 'translate3D(' + t + 'px, 0, 0)',
@@ -295,7 +303,7 @@
           'transform': 'translate3D(' + t + 'px, 0, 0)'
         });
       } else {
-        this.$target.css('opacity', 0.7).animate({
+        this.$targetWrap.css('opacity', 0.7).animate({
           'margin-left': t + 'px',
           'opacity': 1
         }, this.options.transition_ms);
@@ -318,7 +326,7 @@
       var t = -((this.p - 1 + this.offset * this.total) *
           this.getWidth()) / this.total + px;
       if (isTransformSupported) {
-        this.$target.css({
+        this.$targetWrap.css({
           '-webkit-transform': 'translate3D(' + t + 'px, 0, 0)',
           '-moz-transform': 'translate3D(' + t + 'px, 0, 0)',
           '-ms-transform': 'translate3D(' + t + 'px, 0, 0)',
@@ -326,7 +334,7 @@
           'transform': 'translate3D(' + t + 'px, 0, 0)'
         });
       } else {
-        this.$target.css({
+        this.$targetWrap.css({
           'margin-left': t + 'px',
           'opacity': 1
         });
@@ -336,6 +344,7 @@
     // ## methods for user
     destroy: function () {
       this.$el.removeClass('infinite-swipe-stage');
+      this.$targetWrap.removeClass('infinite-swipe-target-wrap');
       this.$target.filter('.infinite-swipe-target-clone').remove();
       this.$el.find('.infinite-swipe-target').
           removeClass('infinite-swipe-target');

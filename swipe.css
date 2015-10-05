@@ -1,37 +1,34 @@
 /*!
- * infinite-swipe 1.0.1
+ * infinite-swipe 1.1.0
  * https://github.com/mctenshi/infinite-swipe
  *
- * Copyright 2014 RecoPick
+ * (c) 2015 mctenshi (mctenshi@gmail.com)
  * Released under the MIT license
  */
 .infinite-swipe-stage {
   position: relative;
 }
-.infinite-swipe-target {
+.infinite-swipe-target-wrap {
   position: relative;
-  opacity: 1;
+  width: 100%;
   -webkit-transform: translate3D(0, 0, 0);
   -moz-transform: translate3D(0, 0, 0);
   -ms-transform: translate3D(0, 0, 0);
   -o-transform: translate3D(0, 0, 0);
   transform: translate3D(0, 0, 0);
-  -webkit-transition: -webkit-transform 300ms;
-  -moz-transition: -moz-transform 300ms;
-  -ms-transition: -ms-transform 300ms;
-  -o-transition: -o-transform 300ms;
-  transition: transform 300ms;
+  -webkit-transition-duration: 0;
+  -moz-transition-duration: 0;
+  -ms-transition-duration: 0;
+  -o-transition-duration: 0;
+  transition-duration: 0;
 }
-.infinite-swipe-disabled-transition {
-  -webkit-transition: none;
-  -moz-transition: none;
-  -ms-transition: none;
-  -o-transition: none;
-  transition: none;
+.infinite-swipe-target {
+  position: relative;
+  opacity: 1;
 }
 .infinite-swipe-target-clone {
   position: absolute;
 }
-.infinite-swipe-target.infinite-swipe-resizing {
+.infinite-swipe-target-wrap.infinite-swipe-resizing {
   opacity: .3;
 }

@@ -186,6 +186,7 @@ Options
 
 Options for Infinite Swipe.
 
+ * `$targetWrap`: (Optional) set content wrapper element as jQuery element. (set targetWrap element let swiping performance better)
  * `$target`: (Required) set content element as jQuery element.
  * `total`: (Required) Set total page count.
  * `$prev`: set previous button as jQuery Element.
@@ -218,6 +219,5 @@ this remove css classes and unregister events for infinite swipe.
 Live Example
 ------------
 
- * Shinsegae duty free shop "RECOMMEND PRODUCT": http://www.ssgdfs.com/shop/main
- * Korean woman clothing mall Naingirl "You may also like":
-http://www.naingirl.com/shop/shopdetail.html?branduid=96849
+ * KBS news "Recommend news": http://news.kbs.co.kr/news/view.do?ncd=3158686
+ * Korean woman clothing mall NANING9 "Other users also viewed": http://naning9.com/shop/shopdetail.html?branduid=33527
