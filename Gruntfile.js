@@ -1,3 +1,4 @@
+/*jshint node: true */
 "use strict";
 
 module.exports = function (grunt) {
@@ -29,6 +30,10 @@ module.exports = function (grunt) {
       scripts: {
         files: [ 'swipe.js' ],
         tasks: [ 'uglify' ]
+      },
+      stylesheets: {
+        files: [ 'swipe.css' ],
+        tasks: [ 'cssmin' ]
       }
     }
   });

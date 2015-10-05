@@ -1,5 +1,5 @@
 /*!
- * infinite-swipe 1.0.1
+ * infinite-swipe 1.1.0
  * https://github.com/mctenshi/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/mctenshi/recopick-swipe
