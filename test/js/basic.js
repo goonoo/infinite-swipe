@@ -6,6 +6,7 @@ QUnit.done(function (details) {
 });
 
 $('.stage1').infiniteSwipe({
+  $targetWrap: $('.target-wrap1'),
   $target: $('.target1'),
   total: 3,
   $prev: $('.stage1 .prev'),
@@ -14,6 +15,7 @@ $('.stage1').infiniteSwipe({
 });
 
 $('.stage2').infiniteSwipe({
+  $targetWrap: $('.target-wrap2'),
   $target: $('.target2'),
   total: 3,
   $prev: $('.stage2 .prev'),

@@ -3,6 +3,8 @@
  * https://github.com/mctenshi/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/mctenshi/recopick-swipe
+ *
+ * (c) 2015 mctenshi (mctenshi@gmail.com)
  * Released under the MIT license
  */
 (function (factory) {
