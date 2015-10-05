@@ -44,6 +44,7 @@
       $next: null,
       $curr: null,
       total: 1,
+      transition_ms: 200,
       infinite: false,
       autoswipe_seconds: 0,
       onPage: null
@@ -61,9 +62,18 @@
     this.init();
   };
   Swipe.prototype = {
+    _setTransitionDuration: function (ms) {
+      var el = this.$targetWrap.get(0);
+      el.style.webkitTransitionDuration = ms + 'ms';
+      el.style.mozTransitionDuration = ms + 'ms';
+      el.style.msTransitionDuration = ms + 'ms';
+      el.style.oTransitionDuration = ms + 'ms';
+      el.style.transitionDuration = ms + 'ms';
+    },
     init: function () {
       this.$el.addClass('infinite-swipe-stage');
       this.$targetWrap.addClass('infinite-swipe-target-wrap');
+      this._setTransitionDuration(this.options.transition_ms);
       this.$target.addClass('infinite-swipe-target');
 
       if (this.options.infinite) {
@@ -134,7 +144,7 @@
         e.stopPropagation();
         this._swiped = true;
         this.curr_px = 0;
-        this.$targetWrap.removeClass('infinite-swipe-disabled-transition');
+        this._setTransitionDuration(0);
         this.swipeNext();
         return;
       }
@@ -150,7 +160,7 @@
         e.stopPropagation();
         this._swiped = true;
         this.curr_px = 0;
-        this.$targetWrap.removeClass('infinite-swipe-disabled-transition');
+        this._setTransitionDuration(0);
         this.swipePrev();
         return;
       }
@@ -158,10 +168,10 @@
       this.animate_px(l);
     },
     onDragStart: function (e) {
-      this.$targetWrap.addClass('infinite-swipe-disabled-transition');
+      this._setTransitionDuration(this.options.transition_ms);
     },
     onDragEnd: function (e) {
-      this.$targetWrap.removeClass('infinite-swipe-disabled-transition');
+      this._setTransitionDuration(0);
       if (!this._swiped) this.animate();
       this._swiped = false;
       $(window).off('touchmove', this.disabled_touch);
