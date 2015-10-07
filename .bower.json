@@ -5,7 +5,7 @@
   "_resolution": {
     "type": "version",
     "tag": "1.1.1",
-    "commit": "a0430cb0fed4355654eed5affb1461173c468b28"
+    "commit": "bc3075e"
   },
   "_source": "git://github.com/mctenshi/infinite-swipe.git",
   "_target": "~1",
