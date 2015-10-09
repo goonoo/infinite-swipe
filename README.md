@@ -186,7 +186,8 @@ Options
 
 Options for Infinite Swipe.
 
- * `$targetWrap`: (Optional) set content wrapper element as jQuery element. (set targetWrap element let swiping performance better)
+ * `$target_wrap`: (Optional) set content wrapper element as jQuery element.
+    (set target\_wrap element let swiping performance better)
  * `$target`: (Required) set content element as jQuery element.
  * `total`: (Required) Set total page count.
  * `$prev`: set previous button as jQuery Element.
@@ -196,6 +197,8 @@ Options for Infinite Swipe.
  * `transition_ms`: set swipe transition speed as milliseconds. (default: 300)
  * `onPage`: event that fires when page changed. Pass page number with
      first argument.
+ * `$autoswipe_pause_el`: jQuery Element that pause autoswipe when user
+     mouseenter or focus in (default: stage element)
 
 
 Methods
