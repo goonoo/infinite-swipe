@@ -292,7 +292,7 @@
       this.curr_px = 0;
 
       var t = -((this.p - 1 + this.offset * this.total) *
-          this.getWidth()) / this.total;
+          this.getWidth(true)) / this.total;
 
       if (isTransformSupported) {
         this.$targetWrap.css({
