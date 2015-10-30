@@ -353,6 +353,10 @@
           removeClass('infinite-swipe-target');
       this.removeListeners();
       if (this.options.autoswipe_seconds > 0) {
+        if (this._as_timeout_id) {
+          clearTimeout(this._as_timeout_id);
+          this._as_timeout_id = null;
+        }
         this.$el.off('mouseenter focusin', this._as_pause_event)
                 .off('mouseleave focusout', this._as_resume_event);
       }
