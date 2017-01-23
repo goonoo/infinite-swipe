@@ -36,6 +36,55 @@
     return false;
   }());
 
+  var animateSlide = function($target_wrap, pos, options) {
+    if (isTransformSupported) {
+      $target_wrap.css({
+        '-webkit-transform': 'translate3D(' + pos + 'px, 0, 0)',
+        '-moz-transform': 'translate3D(' + pos + 'px, 0, 0)',
+        '-ms-transform': 'translate3D(' + pos + 'px, 0, 0)',
+        '-o-transform': 'translate3D(' + pos + 'px, 0, 0)',
+        'transform': 'translate3D(' + pos + 'px, 0, 0)'
+      });
+    } else {
+      $target_wrap.css('opacity', 0.7).animate({
+        'margin-left': t + 'px',
+        'opacity': 1
+      }, options.transition_ms);
+    }
+  };
+
+  var animateFadeIn = function($target_wrap, pos, options) {
+    $target_wrap.animate({'opacity': 0}, options.transition_ms,
+      function() {
+        $(this).css({
+          'margin-left': pos + 'px',
+          'transition': '0s'
+        });
+        $(this).animate({'opacity': 1});
+      }
+    );
+  };
+
+  var animateNone = function($target_wrap, pos, options) {
+    $target_wrap.css({
+      'margin-left': pos + 'px',
+      'transition': '0s'
+    });
+  };
+
+  var animateFactory = function(type) {
+    switch(type) {
+    case 'none':
+      return animateNone;
+    case 'slide':
+      return animateSlide;
+    case 'fadeIn':
+      return animateFadeIn;
+    default:
+      return animateSlide;
+    }
+  };
+
   var Swipe = function ($el, options) {
     options = $.extend({
       $target_wrap: null,
@@ -46,6 +95,7 @@
       $autoswipe_pause_el: null,
       total: 1,
       transition_ms: 200,
+      animation_type: 'slide',
       infinite: false,
       autoswipe_seconds: 0,
       onPage: null
@@ -297,20 +347,7 @@
       var t = -((this.p - 1 + this.offset * this.total) *
           this.getWidth(true)) / this.total;
 
-      if (isTransformSupported) {
-        this.$target_wrap.css({
-          '-webkit-transform': 'translate3D(' + t + 'px, 0, 0)',
-          '-moz-transform': 'translate3D(' + t + 'px, 0, 0)',
-          '-ms-transform': 'translate3D(' + t + 'px, 0, 0)',
-          '-o-transform': 'translate3D(' + t + 'px, 0, 0)',
-          'transform': 'translate3D(' + t + 'px, 0, 0)'
-        });
-      } else {
-        this.$target_wrap.css('opacity', 0.7).animate({
-          'margin-left': t + 'px',
-          'opacity': 1
-        }, this.options.transition_ms);
-      }
+      animateFactory(this.options.animation_type)(this.$target_wrap, t, this.options);
       if (!this.options.infinite) {
         if (this.options.$prev)
           this.options.$prev.toggleClass('disabled', this.p === 1);
@@ -328,20 +365,7 @@
       this.curr_px = px;
       var t = -((this.p - 1 + this.offset * this.total) *
           this.getWidth()) / this.total + px;
-      if (isTransformSupported) {
-        this.$target_wrap.css({
-          '-webkit-transform': 'translate3D(' + t + 'px, 0, 0)',
-          '-moz-transform': 'translate3D(' + t + 'px, 0, 0)',
-          '-ms-transform': 'translate3D(' + t + 'px, 0, 0)',
-          '-o-transform': 'translate3D(' + t + 'px, 0, 0)',
-          'transform': 'translate3D(' + t + 'px, 0, 0)'
-        });
-      } else {
-        this.$target_wrap.css({
-          'margin-left': t + 'px',
-          'opacity': 1
-        });
-      }
+      animateFactory(this.options.animation_type)(this.$target_wrap, t, this.options);
     },
 
     // ## methods for user
