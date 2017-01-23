@@ -57,8 +57,7 @@
     $target_wrap.animate({'opacity': 0}, options.transition_ms,
       function() {
         $(this).css({
-          'margin-left': pos + 'px',
-          'transition': '0s'
+          'margin-left': pos + 'px'
         });
         $(this).animate({'opacity': 1});
       }
@@ -67,8 +66,7 @@
 
   var animateNone = function($target_wrap, pos, options) {
     $target_wrap.css({
-      'margin-left': pos + 'px',
-      'transition': '0s'
+      'margin-left': pos + 'px'
     });
   };
 
@@ -94,12 +92,15 @@
       $curr: null,
       $autoswipe_pause_el: null,
       total: 1,
-      transition_ms: 200,
+      transition_ms: null,
       animation_type: 'slide',
       infinite: false,
       autoswipe_seconds: 0,
       onPage: null
     }, options);
+
+    if (options.transition_ms !== null)
+      options.transition_ms = options.animation_type === 'slide' ? 200 : 0;
 
     this.$el = $el;
     this.$target_wrap = options.$target_wrap || $el;
