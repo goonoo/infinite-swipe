@@ -195,6 +195,7 @@ Options for Infinite Swipe.
  * `infinite`: set boolean to use infinite scroll or not. (default: false)
  * `$curr`: set element to display current page number as jQuery Element.
  * `transition_ms`: set swipe transition speed as milliseconds. (default: 300)
+ * `animation_type`: set animation type (default: 'slide') ['fadeIn', 'slide', 'none']
  * `onPage`: event that fires when page changed. Pass page number with
      first argument.
  * `$autoswipe_pause_el`: jQuery Element that pause autoswipe when user
