@@ -251,7 +251,9 @@
     onWindowResize: function (e) {
       var this_ = this;
       setTimeout(function () {
-        this_.getWidth(true);
+        var old_w = this_.getWidth();
+        var new_w = this_.getWidth(true);
+        if (old_w === new_w) return;
         this_.$target_wrap.addClass('infinite-swipe-resizing');
         this_.animate(0, function () {
           this_.$target_wrap.removeClass('infinite-swipe-resizing');
