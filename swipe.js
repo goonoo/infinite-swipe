@@ -99,7 +99,7 @@
       onPage: null
     }, options);
 
-    if (options.transition_ms !== null)
+    if (options.transition_ms === null)
       options.transition_ms = options.animation_type === 'slide' ? 200 : 0;
 
     this.$el = $el;
