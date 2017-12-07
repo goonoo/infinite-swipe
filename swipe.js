@@ -1,5 +1,5 @@
 /*!
- * infinite-swipe 1.1.7
+ * infinite-swipe 1.1.8
  * https://github.com/mctenshi/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/mctenshi/recopick-swipe
@@ -47,7 +47,7 @@
       });
     } else {
       $target_wrap.css('opacity', 0.7).animate({
-        'margin-left': t + 'px',
+        'margin-left': pos + 'px',
         'opacity': 1
       }, options.transition_ms);
     }
