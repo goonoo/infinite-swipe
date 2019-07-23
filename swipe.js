@@ -1,10 +1,10 @@
 /*!
- * infinite-swipe 1.1.8
- * https://github.com/mctenshi/infinite-swipe
+ * infinite-swipe 1.1.9
+ * https://github.com/goonoo/infinite-swipe
  *
- * infinite swipe is fork of https://github.com/mctenshi/recopick-swipe
+ * infinite swipe is fork of https://github.com/goonoo/recopick-swipe
  *
- * (c) 2015 mctenshi (mctenshi@gmail.com)
+ * (c) 2015 goonoo (mctenshi@gmail.com)
  * Released under the MIT license
  */
 (function (factory) {
