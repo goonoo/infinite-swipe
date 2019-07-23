@@ -1,4 +1,4 @@
-## Infinite Swipe [![Build Status](https://travis-ci.org/mctenshi/infinite-swipe.png?branch=master)](https://travis-ci.org/mctenshi/infinite-swipe)
+## Infinite Swipe [![Build Status](https://travis-ci.org/goonoo/infinite-swipe.png?branch=master)](https://travis-ci.org/goonoo/infinite-swipe)
 
 Infinite Swipe is simple swipe library that can use for both desktop and mobile
 devices.
@@ -29,9 +29,9 @@ You can specify your own class name than `stage` or `target`.
 
     <div class="stage">
       <ul class="target">
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/1.png" width="300" height="300"></li>
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png" width="300" height="300"></li>
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/5.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/1.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/3.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/5.png" width="300" height="300"></li>
       </ul>
     </div>
 
@@ -93,9 +93,9 @@ each `$prev`, `$next` option, you can make previous, next button functions.
 
     <div class="stage">
       <ul class="target">
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/1.png" width="300" height="300"></li>
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png" width="300" height="300"></li>
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/5.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/1.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/3.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/5.png" width="300" height="300"></li>
       </ul>
       <div class="prev"></div>
       <div class="next"></div>
@@ -114,9 +114,9 @@ The following is a sample CSS code for Prev, Next buttons.
 If you do not specify an infinite option, the class `disabled` is added to
 the prev button at first page, and the next page button at last page.
 
-    .prev{cursor:pointer;position:absolute;top:350px;left:100px;width:47px;height:25px;background:url(http://mctenshi.github.io/infinite-swipe/images/prev.png) no-repeat 0 0;}
+    .prev{cursor:pointer;position:absolute;top:350px;left:100px;width:47px;height:25px;background:url(http://goonoo.github.io/infinite-swipe/images/prev.png) no-repeat 0 0;}
     .prev.disabled{cursor:default;opacity:.3}
-    .next{cursor:pointer;position:absolute;top:350px;right:100px;width:47px;height:25px;background:url(http://mctenshi.github.io/infinite-swipe/images/next.png) no-repeat 0 0;}
+    .next{cursor:pointer;position:absolute;top:350px;right:100px;width:47px;height:25px;background:url(http://goonoo.github.io/infinite-swipe/images/next.png) no-repeat 0 0;}
     .next.disabled{cursor:default;opacity:.3}
 
 [Prev, Next Buttons Demo](http://jsfiddle.net/ebk03jzz/1/)
@@ -143,9 +143,9 @@ as the current page indicator.
 
     <div class="stage">
       <ul class="target">
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/1.png" width="300" height="300"></li>
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/3.png" width="300" height="300"></li>
-        <li><img alt="" src="https://mctenshi.github.io/infinite-swipe/sample/img/5.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/1.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/3.png" width="300" height="300"></li>
+        <li><img alt="" src="https://goonoo.github.io/infinite-swipe/sample/img/5.png" width="300" height="300"></li>
       </ul>
       <div class="prev"></div>
       <div class="pages">
@@ -178,7 +178,7 @@ Responsive Swipe
 
 Infinite swipe basically support responsive design!
 
-check [Responsive swipe example](https://mctenshi.github.io/infinite-swipe/sample/responsive.html).
+check [Responsive swipe example](https://goonoo.github.io/infinite-swipe/sample/responsive.html).
 
 
 Options
