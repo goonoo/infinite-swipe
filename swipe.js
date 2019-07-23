@@ -451,11 +451,11 @@
     });
   };
 
-  $.fn.infiniteSwipe = function (options) {
+  $.fn.infiniteSwipe = function (options, arg) {
     return this.each(function () {
       if (typeof options == "string") {
         var inst = $(this).data('infiniteswipe');
-        if (inst) inst[options]();
+        if (inst) inst[options](arg);
       } else {
         $(this).infiniteSwipeEvent();
         $(this).data('infiniteswipe', new Swipe($(this), options));
