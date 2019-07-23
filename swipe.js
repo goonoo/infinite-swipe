@@ -152,7 +152,10 @@
         this.initAutoswipe();
       }
     },
-    initAutoswipe: function () {
+    initAutoswipe: function (autoswipe_seconds) {
+      // override autoswipe_seconds option when initAutoswipe called manually
+      if (autoswipe_seconds) this.options.autoswipe_seconds = autoswipe_seconds;
+
       var this_ = this;
       this._as_next = function () {
         if (this_._as_timeout_id) {
