@@ -132,10 +132,10 @@
       if (this.options.infinite) {
         var clone1 = this.$target.clone().attr('aria-hidden', true)
                .addClass('infinite-swipe-target-clone')
-               .css('left', '-' + this.options.total * 100 + '%');
+               .css('left', '-' + this.getWidth(true) + 'px');
         var clone2 = this.$target.clone().attr('aria-hidden', true)
                .addClass('infinite-swipe-target-clone')
-               .css('left', this.options.total * 100 + '%');
+               .css('left', this.getWidth(true) + 'px');
         clone1.insertBefore(this.$target);
         clone2.insertBefore(this.$target);
         this.$target = this.$target.parent().find('.infinite-swipe-target');
@@ -243,7 +243,7 @@
       this.offset = 0;
       this.animate();
       this.$target.each(function (idx) {
-        $(this).css('left', this_.total * (this_.offset + idx) * 100 + '%');
+        $(this).css('left', this_.getWidth(true) * (this_.offset + idx) + 'px');
       });
     },
     onSwipePage: function (e, new_page) {
@@ -335,15 +335,15 @@
           this.offset++;
           // fixed coordinates after transition
           this.$target.each(function (idx) {
-            var left = this_.total * (this_.offset + idx - 1) * 100;
-            $(this).css('left', left + '%');
+            var left = this_.getWidth(true) * (this_.offset + idx - 1);
+            $(this).css('left', left + 'px');
           });
         } else if (this.p === 0) {
           this.p = this.total;
           this.offset--;
           this.$target.each(function (idx) {
-            var left = this_.total * (this_.offset + idx - 1) * 100;
-            $(this).css('left', left + '%');
+            var left = this_.getWidth(true) * (this_.offset + idx - 1);
+            $(this).css('left', left + 'px');
           });
         }
       }
