@@ -333,19 +333,15 @@
         if (this.p === this.total + 1) {
           this.p = 1;
           this.offset++;
-          // fixed coordinates after transition
-          this.$target.each(function (idx) {
-            var left = this_.getWidth(true) * (this_.offset + idx - 1);
-            $(this).css('left', left + 'px');
-          });
         } else if (this.p === 0) {
           this.p = this.total;
           this.offset--;
-          this.$target.each(function (idx) {
-            var left = this_.getWidth(true) * (this_.offset + idx - 1);
-            $(this).css('left', left + 'px');
-          });
         }
+        // fixed coordinates after transition
+        this.$target.each(function (idx) {
+          var left = this_.getWidth(true) * (this_.offset + idx - 1);
+          $(this).css('left', left + 'px');
+        });
       }
 
       this.curr_px = 0;
