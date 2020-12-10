@@ -423,7 +423,7 @@
       mdownpos.y = mpos.y = pageY;
       mtimestamp = e.timeStamp;
     }).on('touchend touchleave', function (e) {
-      if (mdown) $el.trigger('dragend');
+      if (mdown && mdirection !== 'y') $el.trigger('dragend');
       mdown = false;
     }).on('touchmove', function (e) {
       // ignore vertical oriented mousemove
