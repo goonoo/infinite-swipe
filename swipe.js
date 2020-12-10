@@ -7,6 +7,7 @@
  * (c) 2015 goonoo (mctenshi@gmail.com)
  * Released under the MIT license
  */
+
 (function (factory) {
   "use strict";
 
@@ -53,13 +54,17 @@
     }
   };
 
+  // dragEnd 감지 위한 변수 추가
+  var _is_dragged = false;
   var animateFadeIn = function($target_wrap, pos, options) {
     $target_wrap.animate({'opacity': 0}, options.transition_ms,
       function() {
-        $(this).css({
-          'margin-left': pos + 'px'
-        });
-        $(this).animate({'opacity': 1});
+        if (!_is_dragged){
+          $(this).css({
+            'margin-left': pos + 'px'
+          });
+          $(this).animate({'opacity': 1}, options.transition_ms + 200);
+        }
       }
     );
   };
@@ -225,9 +230,11 @@
       this.animate_px(l);
     },
     onDragStart: function (e) {
+      _is_dragged = true;
       this._setTransitionDuration(0);
     },
     onDragEnd: function (e) {
+      _is_dragged = false;
       this._setTransitionDuration(this.options.transition_ms);
       if (!this._swiped) this.animate();
       this._swiped = false;
