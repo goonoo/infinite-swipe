@@ -115,7 +115,6 @@
     this.offset = 0;
     this.total = options.total;
     this.curr_px = 0;
-    this.disabled_touch = false;
     this.options = options;
     this.init();
   };
@@ -199,7 +198,10 @@
     },
     onDragLeft: function (e, velocityX, deltaX) {
       if (this._swiped) return;
-      $(window).on('touchmove', this.disabled_touch);
+      window.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }, { passive:false });
       if (Math.abs(velocityX) > 5 &&
           !(this.p === this.total && !this.options.infinite)) {
         e.preventDefault();
@@ -215,7 +217,10 @@
     },
     onDragRight: function (e, velocityX, deltaX) {
       if (this._swiped) return;
-      $(window).on('touchmove', this.disabled_touch);
+      window.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }, { passive:false });
       if (Math.abs(velocityX) > 5 &&
           !(this.p === this.total && !this.options.infinite)) {
         e.preventDefault();
@@ -238,7 +243,10 @@
       this._setTransitionDuration(this.options.transition_ms);
       if (!this._swiped) this.animate();
       this._swiped = false;
-      $(window).off('touchmove', this.disabled_touch);
+      window.removeEventListener('touchmove', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }, { passive:false });
     },
     onSwipeTotal: function (e, new_total) {
       var this_ = this;
@@ -466,3 +474,5 @@
     });
   };
 }));
+
+// TODO: 중복된 코드 리팩토링 필요
