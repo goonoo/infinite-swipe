@@ -162,8 +162,9 @@
 
       var this_ = this;
       this._as_next = function () {
-        if (this_._as_timeout_id) {
+        if (this_._as_timeout_id || (this_.p === this_.total && !this_.options.infinite)) {
           clearTimeout(this_._as_timeout_id);
+          return;
         }
         this_._as_timeout_id = setTimeout(function () {
           if (!this_._as_pause) this_.swipeNext();
