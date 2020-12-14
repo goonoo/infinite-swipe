@@ -54,9 +54,10 @@
     }
   };
 
-  var _drag_ended = true;
+  var _drag_ended = true,
+      _drag_blocked = false;
   var animateFadeIn = function($target_wrap, pos, options) {
-    if (_drag_ended){
+    if (_drag_ended && !_drag_blocked){
       $target_wrap.animate({'opacity': 0}, options.transition_ms,
         function() {
           $(this).css({
@@ -161,6 +162,7 @@
 
       var this_ = this;
       this._as_next = function () {
+        _drag_blocked = false;
         if (this_._as_timeout_id || (this_.p === this_.total && !this_.options.infinite)) {
           clearTimeout(this_._as_timeout_id);
           return;
@@ -187,18 +189,24 @@
     onPrev: function (e) {
       e.preventDefault();
       e.stopPropagation();
+      _drag_blocked = false;
       if (this.p === 1 && !this.options.infinite) return;
       this.swipePrev();
     },
     onNext: function (e) {
       e.preventDefault();
       e.stopPropagation();
+      _drag_blocked = false;
       if (this.p === this.total && !this.options.infinite) return;
       this.swipeNext();
     },
     onDragLeft: function (e, velocityX, deltaX) {
       if (this._swiped) return;
-      if (this.p === this.total && !this.options.infinite) return;
+      if (this.p === this.total && !this.options.infinite) {
+        _drag_blocked = true;
+        return;
+      }
+      _drag_blocked = false;
       window.addEventListener('touchmove', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -219,7 +227,11 @@
     },
     onDragRight: function (e, velocityX, deltaX) {
       if (this._swiped) return;
-      if (this.p === 1 && !this.options.infinite) return;
+      if (this.p === 1 && !this.options.infinite) {
+        _drag_blocked = true;
+        return;
+      }
+      _drag_blocked = false;
       window.addEventListener('touchmove', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -266,6 +278,7 @@
       });
     },
     onSwipePage: function (e, new_page) {
+      _drag_blocked = false;
       if (new_page < 1 || new_page > this.total) return;
       this.p = new_page;
       this.animate();
