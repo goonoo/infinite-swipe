@@ -54,19 +54,18 @@
     }
   };
 
-  // dragEnd 감지 위한 변수 추가
-  var _is_dragged = false;
+  var _drag_ended = true;
   var animateFadeIn = function($target_wrap, pos, options) {
-    $target_wrap.animate({'opacity': 0}, options.transition_ms,
-      function() {
-        if (!_is_dragged){
+    if (_drag_ended){
+      $target_wrap.animate({'opacity': 0}, options.transition_ms,
+        function() {
           $(this).css({
             'margin-left': pos + 'px'
           });
           $(this).animate({'opacity': 1}, options.transition_ms + 200);
         }
-      }
-    );
+      );
+    }
   };
 
   var animateNone = function($target_wrap, pos, options) {
@@ -199,6 +198,7 @@
     },
     onDragLeft: function (e, velocityX, deltaX) {
       if (this._swiped) return;
+      if (this.p === this.total && !this.options.infinite) return;
       window.addEventListener('touchmove', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -207,6 +207,7 @@
           !(this.p === this.total && !this.options.infinite)) {
         e.preventDefault();
         e.stopPropagation();
+        _drag_ended = true;
         this._swiped = true;
         this.curr_px = 0;
         this._setTransitionDuration(0);
@@ -218,14 +219,16 @@
     },
     onDragRight: function (e, velocityX, deltaX) {
       if (this._swiped) return;
+      if (this.p === 1 && !this.options.infinite) return;
       window.addEventListener('touchmove', function(e) {
         e.preventDefault();
         e.stopPropagation();
       }, { passive:false });
       if (Math.abs(velocityX) > 5 &&
-          !(this.p === this.total && !this.options.infinite)) {
+          !(this.p === 1 && !this.options.infinite)) {
         e.preventDefault();
         e.stopPropagation();
+        _drag_ended = true;
         this._swiped = true;
         this.curr_px = 0;
         this._setTransitionDuration(0);
@@ -236,11 +239,11 @@
       this.animate_px(l);
     },
     onDragStart: function (e) {
-      _is_dragged = true;
+      _drag_ended = false;
       this._setTransitionDuration(0);
     },
     onDragEnd: function (e) {
-      _is_dragged = false;
+      _drag_ended = true;
       this._setTransitionDuration(this.options.transition_ms);
       if (!this._swiped) this.animate();
       this._swiped = false;
@@ -475,5 +478,3 @@
     });
   };
 }));
-
-// TODO: 중복된 코드 리팩토링 필요
