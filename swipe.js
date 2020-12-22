@@ -7,6 +7,7 @@
  * (c) 2015 goonoo (mctenshi@gmail.com)
  * Released under the MIT license
  */
+
 (function (factory) {
   "use strict";
 
@@ -53,15 +54,17 @@
     }
   };
 
-  var animateFadeIn = function($target_wrap, pos, options) {
-    $target_wrap.animate({'opacity': 0}, options.transition_ms,
-      function() {
-        $(this).css({
-          'margin-left': pos + 'px'
-        });
-        $(this).animate({'opacity': 1});
-      }
-    );
+  var animateFadeIn = function($target_wrap, pos, options, drag_ended, drag_blocked) {
+    if (drag_ended && !drag_blocked){
+      $target_wrap.animate({'opacity': 0}, options.transition_ms,
+        function() {
+          $(this).css({
+            'margin-left': pos + 'px'
+          });
+          $(this).animate({'opacity': 1}, options.transition_ms + 200);
+        }
+      );
+    }
   };
 
   var animateNone = function($target_wrap, pos, options) {
@@ -110,8 +113,9 @@
     this.offset = 0;
     this.total = options.total;
     this.curr_px = 0;
-    this.disabled_touch = false;
     this.options = options;
+    this._drag_ended = true;
+    this._drag_blocked = false;
     this.init();
   };
   Swipe.prototype = {
@@ -158,8 +162,10 @@
 
       var this_ = this;
       this._as_next = function () {
-        if (this_._as_timeout_id) {
+        this_._drag_blocked = false;
+        if (this_._as_timeout_id || (this_.p === this_.total && !this_.options.infinite)) {
           clearTimeout(this_._as_timeout_id);
+          return;
         }
         this_._as_timeout_id = setTimeout(function () {
           if (!this_._as_pause) this_.swipeNext();
@@ -183,22 +189,33 @@
     onPrev: function (e) {
       e.preventDefault();
       e.stopPropagation();
+      this._drag_blocked = false;
       if (this.p === 1 && !this.options.infinite) return;
       this.swipePrev();
     },
     onNext: function (e) {
       e.preventDefault();
       e.stopPropagation();
+      this._drag_blocked = false;
       if (this.p === this.total && !this.options.infinite) return;
       this.swipeNext();
     },
     onDragLeft: function (e, velocityX, deltaX) {
       if (this._swiped) return;
-      $(window).on('touchmove', this.disabled_touch);
+      if (this.p === this.total && !this.options.infinite) {
+        this._drag_blocked = true;
+        return;
+      }
+      this._drag_blocked = false;
+      window.addEventListener('touchmove', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }, { passive:false });
       if (Math.abs(velocityX) > 5 &&
           !(this.p === this.total && !this.options.infinite)) {
         e.preventDefault();
         e.stopPropagation();
+        this._drag_ended = true;
         this._swiped = true;
         this.curr_px = 0;
         this._setTransitionDuration(0);
@@ -210,11 +227,20 @@
     },
     onDragRight: function (e, velocityX, deltaX) {
       if (this._swiped) return;
-      $(window).on('touchmove', this.disabled_touch);
-      if (Math.abs(velocityX) > 5 &&
-          !(this.p === this.total && !this.options.infinite)) {
+      if (this.p === 1 && !this.options.infinite) {
+        this._drag_blocked = true;
+        return;
+      }
+      this._drag_blocked = false;
+      window.addEventListener('touchmove', function(e) {
         e.preventDefault();
         e.stopPropagation();
+      }, { passive:false });
+      if (Math.abs(velocityX) > 5 &&
+          !(this.p === 1 && !this.options.infinite)) {
+        e.preventDefault();
+        e.stopPropagation();
+        this._drag_ended = true;
         this._swiped = true;
         this.curr_px = 0;
         this._setTransitionDuration(0);
@@ -225,13 +251,18 @@
       this.animate_px(l);
     },
     onDragStart: function (e) {
+      this._drag_ended = false;
       this._setTransitionDuration(0);
     },
     onDragEnd: function (e) {
+      this._drag_ended = true;
       this._setTransitionDuration(this.options.transition_ms);
       if (!this._swiped) this.animate();
       this._swiped = false;
-      $(window).off('touchmove', this.disabled_touch);
+      window.removeEventListener('touchmove', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }, { passive:false });
     },
     onSwipeTotal: function (e, new_total) {
       var this_ = this;
@@ -247,6 +278,7 @@
       });
     },
     onSwipePage: function (e, new_page) {
+      this._drag_blocked = false;
       if (new_page < 1 || new_page > this.total) return;
       this.p = new_page;
       this.animate();
@@ -349,7 +381,7 @@
       var t = -((this.p - 1 + this.offset * this.total) *
           this.getWidth(true)) / this.total;
 
-      animateFactory(this.options.animation_type)(this.$target_wrap, t, this.options);
+      animateFactory(this.options.animation_type)(this.$target_wrap, t, this.options, this._drag_ended, this._drag_blocked);
       if (!this.options.infinite) {
         if (this.options.$prev)
           this.options.$prev.toggleClass('disabled', this.p === 1);
@@ -367,7 +399,7 @@
       this.curr_px = px;
       var t = -((this.p - 1 + this.offset * this.total) *
           this.getWidth()) / this.total + px;
-      animateFactory(this.options.animation_type)(this.$target_wrap, t, this.options);
+      animateFactory(this.options.animation_type)(this.$target_wrap, t, this.options, this._drag_ended, this._drag_blocked);
     },
 
     // ## methods for user
@@ -416,7 +448,7 @@
       mdownpos.y = mpos.y = pageY;
       mtimestamp = e.timeStamp;
     }).on('touchend touchleave', function (e) {
-      if (mdown) $el.trigger('dragend');
+      if (mdown && mdirection !== 'y') $el.trigger('dragend');
       mdown = false;
     }).on('touchmove', function (e) {
       // ignore vertical oriented mousemove
