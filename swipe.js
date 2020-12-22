@@ -1,5 +1,5 @@
 /*!
- * infinite-swipe 1.1.10
+ * infinite-swipe 1.1.11
  * https://github.com/goonoo/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/goonoo/recopick-swipe
