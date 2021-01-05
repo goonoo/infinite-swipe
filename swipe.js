@@ -1,5 +1,5 @@
 /*!
- * infinite-swipe 1.1.11
+ * infinite-swipe 1.1.12
  * https://github.com/goonoo/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/goonoo/recopick-swipe
@@ -84,6 +84,11 @@
     default:
       return animateSlide;
     }
+  };
+
+  var cancelEvent = function(e) {
+    e.preventDefault();
+    e.stopPropagation();
   };
 
   var Swipe = function ($el, options) {
@@ -207,10 +212,7 @@
         return;
       }
       this._drag_blocked = false;
-      window.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }, { passive:false });
+      window.addEventListener('touchmove', cancelEvent, { passive:false });
       if (Math.abs(velocityX) > 5 &&
           !(this.p === this.total && !this.options.infinite)) {
         e.preventDefault();
@@ -232,10 +234,7 @@
         return;
       }
       this._drag_blocked = false;
-      window.addEventListener('touchmove', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }, { passive:false });
+      window.addEventListener('touchmove', cancelEvent, { passive:false });
       if (Math.abs(velocityX) > 5 &&
           !(this.p === 1 && !this.options.infinite)) {
         e.preventDefault();
@@ -259,10 +258,7 @@
       this._setTransitionDuration(this.options.transition_ms);
       if (!this._swiped) this.animate();
       this._swiped = false;
-      window.removeEventListener('touchmove', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-      }, { passive:false });
+      window.removeEventListener('touchmove', cancelEvent, { passive:false });
     },
     onSwipeTotal: function (e, new_total) {
       var this_ = this;
