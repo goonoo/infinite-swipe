@@ -1,5 +1,5 @@
 /*!
- * infinite-swipe 1.1.12
+ * infinite-swipe 1.1.13
  * https://github.com/goonoo/infinite-swipe
  *
  * infinite swipe is fork of https://github.com/goonoo/recopick-swipe
@@ -141,10 +141,12 @@
       if (this.options.infinite) {
         var clone1 = this.$target.clone().attr('aria-hidden', true)
                .addClass('infinite-swipe-target-clone')
-               .css('left', '-' + this.getWidth(true) + 'px');
+               .css('left', '-' + this.getWidth(true) + 'px')
+               .find('a').attr('tabindex', -1).end();
         var clone2 = this.$target.clone().attr('aria-hidden', true)
                .addClass('infinite-swipe-target-clone')
-               .css('left', this.getWidth(true) + 'px');
+               .css('left', this.getWidth(true) + 'px')
+               .find('a').attr('tabindex', -1).end();
         clone1.insertBefore(this.$target);
         clone2.insertBefore(this.$target);
         this.$target = this.$target.parent().find('.infinite-swipe-target');
